@@ -1,4 +1,5 @@
-int createNum = 10;
+int plantNum = 100;
+int zooNum = 50;
 ArrayList<Creature> crs;
 PlantField pfl;
 int borderX = 400;
@@ -17,22 +18,33 @@ void createLife(int num){
   }
 }
 
+void drawBorder(){
+  noFill();
+  stroke(255);
+  //box(borderX,borderY,borderZ);
+  line(0,0,0,borderX,0,0);
+  line(0,0,0,0,borderY,0);
+  line(0,0,0,0,0,borderZ);
+}
+
 void settings(){
-  size(800, 800, P3D);
+  //size(800, 800, P3D);
+  fullScreen(P3D, 1);
   smooth(2);
-  createLife(createNum);
-  pfl = new PlantField(createNum, borderX, borderY, borderZ);
+  createLife(zooNum);
+  pfl = new PlantField(plantNum, borderX, borderY, borderZ);
 }
 
 void draw(){
-
+text("word", 12, 60);  
   camera(borderX, borderY, borderZ, // eyeX, eyeY, eyeZ
          borderX/2, borderY/2, borderZ/2, // centerX, centerY, centerZ
-         0.0, 1.0, 0.0); // upX, upY, upZ
+         1.0, 1.0, -1.0); // upX, upY, upZ
   
-  
+    
   lights();
   background(0);
+  drawBorder();
   pfl.grow();
   pfl.display();
   for (Creature cr : crs) {
