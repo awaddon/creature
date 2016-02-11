@@ -46,7 +46,7 @@ class Creature {
     rotateZ(velocity.theta);
     fill(125, 0, 125);
     noStroke();
-    sphereDetail(5);
+    sphereDetail(10);
     sphere(size);
     translate(0,0,size+2);
     fill(255,0,0);

@@ -67,7 +67,7 @@ class PlantField {
           // Rotating the vector and trying to find free place
           for(float i = 0; i <= PI; i+=PI/4){
             for (float j = -PI; j <= PI ; j+=PI/4){
-              newPos.setRPT(2*field.size, i, j);
+              newPos.setRPT(2*field.size, theta + i, phi + j);
               //newPos.rotateVec(i*)
               for (Plant buff_c : buff){
                 len = sqrt((pow(newPos.x + buff_c.position.x - field.position.x,2))
