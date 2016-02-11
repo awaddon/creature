@@ -44,11 +44,13 @@ class Creature {
     translate(position.x, position.y, position.z);
     rotateX(velocity.phi);
     rotateZ(velocity.theta);
-    fill(125, 255, 125);
+    fill(125, 0, 125);
+    noStroke();
+    sphereDetail(5);
     sphere(size);
     translate(0,0,size+2);
     fill(255,0,0);
-    sphere(1);
+    box(2);
     popMatrix();
   }
   

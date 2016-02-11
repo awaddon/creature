@@ -20,7 +20,7 @@ class Plant {
   void display(){
      pushMatrix();
      translate(position.x, position.y, position.z);
-     stroke(0);
+     stroke(mass);
      fill(0,mass,0);
      box(size);
      popMatrix();
@@ -31,6 +31,7 @@ class PlantField {
 // 
   int num;
   ArrayList <Plant> plantField;
+  ArrayList <Plant> plantFieldBuff;
   ArrayList <Plant> buff;
   PlantField(int inum, float x, float y, float z) {
     plantField = new ArrayList<Plant>();
@@ -40,11 +41,12 @@ class PlantField {
   }
   
   void grow(){
-    for (Plant field : plantField){
-      field.grow();
+    plantFieldBuff = new ArrayList <Plant> (plantField);
+    for (Plant field : plantFieldBuff){
+      field.grow(); //<>//
       //Cell dividing
       if(field.age > field.ageMax){
-        buff.clear();
+       
         //adding cell's neighborhoods in buffer
         for (Plant field_c : plantField){
           if ((field.position.len(field_c.position) <= 2 * field.size) && (field.position.len(field_c.position) != 0))
@@ -84,7 +86,10 @@ class PlantField {
               }
             }
           }
+          buff.clear();
         }
+        else
+          buff.clear();
       }
     }
   }
