@@ -7,6 +7,9 @@ class Creature {
   float     divideMass;
   float     force; // force to move body
   float     consumption; // move energy consumption 
+  float     age;
+  float     divAge;
+  float     deathAge;
   MyVector  vForce;
 
   Creature(float x, float y, float z, float isize, float imass, float iforce) {
@@ -15,8 +18,11 @@ class Creature {
     size  = isize;
     mass  = imass;
     force = iforce;
-    consumption = random(0, 0.5);
+    consumption = random(0, 15);
     divideMass = 100 + random(200);
+    age = 0;
+    divAge = 50 + random(255);
+    deathAge = 255 + random(1023);
     // calculating vector for moving force for this creature in spherical coordinates
     vForce  = new MyVector (iforce, PI*random(180)/180, PI*random(360)/180, 'S');
     average = new MyVector (vForce.x/mass, vForce.y/mass, vForce.z/mass, 'D');
@@ -24,6 +30,7 @@ class Creature {
   }
 
   void moveBrownian() {
+    age ++;
     vForce.rotateVec(PI*random(-5, 5)/180, PI*random(-5, 5)/180);
     average.setXYZ(vForce.x/mass, vForce.y/mass, vForce.z/mass);
     //velocity.setR(velocity.r*0.9);

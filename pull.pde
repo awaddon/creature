@@ -48,8 +48,10 @@ text("word", 12, 60);
   drawBorder();
   pfl.grow();
   pfl.display();
-  binome.cycle();
+  binome.cycle(pfl);
   binome.divide();
+  if ((binome.binome.size()<zooNum) && (pfl.plantField.size()==0))
+    pfl = new PlantField(plantNum, borderX, borderY, borderZ);
 }
 
 void keyPressed(){
@@ -57,6 +59,8 @@ void keyPressed(){
     obsMode = (obsMode == 0) ? 1 : 0;
   if (obsMode == 1)
     moving = 1;
+  if (key == 'n')
+    pfl = new PlantField(plantNum, borderX, borderY, borderZ);
 }
 
 void keyReleased(){

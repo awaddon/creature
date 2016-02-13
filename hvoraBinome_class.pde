@@ -15,7 +15,7 @@ class HerbivoraBinome {
     }
   }
 
-  void cycle() {
+  void cycle(PlantField pfl) {
     for (Creature cr : binome) {
       cr.moveBrownian();
       cr.eating(pfl.plantField);
@@ -30,12 +30,12 @@ class HerbivoraBinome {
     binomeBuff = new ArrayList <Creature> (binome);
     for (Creature cr : binomeBuff) {
 
-      if (cr.mass < 0)
+      if ((cr.mass < 0) || (cr.age > cr.deathAge))
         binome.remove(cr);
       else {
-        if (cr.mass > cr.divideMass) {
+        if ((cr.mass > cr.divideMass) && (cr.age > cr.divAge)) {
           cr.mass /= 2;
-
+          //cr.age = 0;
           Creature newCr = new Creature(cr.position.x+cr.size, 
                                         cr.position.y, 
                                         cr.position.z, 
@@ -45,6 +45,7 @@ class HerbivoraBinome {
 
           newCr.consumption = cr.consumption * random(0.9, 1.1);
           newCr.divideMass  = cr.divideMass * random(0.9, 1.1);
+          newCr.divAge = cr.divAge * random(0.9, 1.1);
           binome.add(newCr);
         }
       }
