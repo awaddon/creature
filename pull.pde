@@ -1,6 +1,6 @@
 int plantNum = 1000;
 int zooNum = 50;
-ArrayList<Creature> crs;
+HerbivoraBinome binome;
 PlantField pfl;
 Observer obs;
 int borderX = 300;
@@ -8,17 +8,6 @@ int borderY = 300;
 int borderZ = 300;
 int obsMode;
 int moving;
-void createLife(int num){
-  crs = new ArrayList<Creature>();
-  for(int i = 0; i < num; i++){
-    crs.add(new Creature ((float)random(borderX/5, borderX - borderX/5),//x
-                          (float)random(borderY/5, borderY - borderY/5),//y
-                          (float)random(borderZ/5, borderZ - borderZ/5),//z
-                          (float)random(  2, 10),//r
-                          (float)random(  1, 20),//m
-                          (float)random(  0,  1)));//f
-  }
-}
 
 void drawBorder(){
   noFill();
@@ -33,7 +22,7 @@ void settings(){
   //size(800, 800, P3D);
   fullScreen(P3D, 1);
   smooth(2);
-  createLife(zooNum);
+  binome = new HerbivoraBinome(zooNum, borderX, borderY, borderZ);
   pfl = new PlantField(plantNum, borderX, borderY, borderZ);
   obs = new Observer(borderX/2, borderY/2, borderZ/2);
 }
@@ -45,7 +34,7 @@ text("word", 12, 60);
            borderX/2, borderY/2, borderZ/2, // centerX, centerY, centerZ
            1.0, 1.0, -1.0); // upX, upY, upZ
   else{
-    //obs.observe();
+    
     if (moving == 1)
       obs.move();
     obs.rotateFOV();
@@ -59,16 +48,8 @@ text("word", 12, 60);
   drawBorder();
   pfl.grow();
   pfl.display();
-  for (Creature cr : crs) {
-    cr.moveBrownian();
-    cr.eating(pfl.plantField);
-    cr.display();
-    cr.checkBorders(borderX, borderY, borderZ);
-  }
-}
-
-void mouseMoved(){
-  //obs.rotateFOV();
+  binome.cycle();
+  binome.divide();
 }
 
 void keyPressed(){

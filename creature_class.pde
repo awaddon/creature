@@ -4,6 +4,7 @@ class Creature {
   MyVector  velocity;
   float     size; // Sphere radius
   float     mass;
+  float     divideMass;
   float     force; // force to move body
   float     consumption; // move energy consumption 
   MyVector  vForce;
@@ -15,6 +16,7 @@ class Creature {
     mass  = imass;
     force = iforce;
     consumption = random(0, 0.5);
+    divideMass = 100 + random(200);
     // calculating vector for moving force for this creature in spherical coordinates
     vForce  = new MyVector (iforce, PI*random(180)/180, PI*random(360)/180, 'S');
     average = new MyVector (vForce.x/mass, vForce.y/mass, vForce.z/mass, 'D');
