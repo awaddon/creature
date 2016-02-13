@@ -19,6 +19,7 @@ class MyVector {
       phi   = c;
       theta = b;
       calcXYZ();
+      
     }
   }
   
@@ -37,6 +38,10 @@ class MyVector {
   void rotateVec(float rtheta, float rphi){
     phi += rphi;
     theta += rtheta;
+    if (theta > PI){
+      theta -= PI;
+      phi -= PI;
+    }
     calcXYZ();
   }
   

@@ -4,7 +4,8 @@ class Creature {
   MyVector  velocity;
   float     size; // Sphere radius
   float     mass;
-  float     force;
+  float     force; // force to move body
+  float     consumption; // move energy consumption 
   MyVector  vForce;
 
   Creature(float x, float y, float z, float isize, float imass, float iforce) {
@@ -13,6 +14,7 @@ class Creature {
     size  = isize;
     mass  = imass;
     force = iforce;
+    consumption = random(0, 0.5);
     // calculating vector for moving force for this creature in spherical coordinates
     vForce  = new MyVector (iforce, PI*random(180)/180, PI*random(360)/180, 'S');
     average = new MyVector (vForce.x/mass, vForce.y/mass, vForce.z/mass, 'D');
@@ -20,11 +22,15 @@ class Creature {
   }
 
   void moveBrownian() {
-    average.rotateVec(PI*random(-30, 30)/180, PI*random(-30, 30)/180);
+    vForce.rotateVec(PI*random(-5, 5)/180, PI*random(-5, 5)/180);
+    average.setXYZ(vForce.x/mass, vForce.y/mass, vForce.z/mass);
+    //velocity.setR(velocity.r*0.9);
     velocity.addXYZ(average.x, average.y, average.z);
+    //velocity.setR(velocity.r*0.999);
     position.x += velocity.x;
     position.y += velocity.y;
     position.z += velocity.z;
+    mass -= vForce.r * consumption;
   }
 
   void checkBorders(float borderX, float borderY, float borderZ) {
@@ -50,6 +56,16 @@ class Creature {
     }
   }
 
+  void eating(ArrayList<Plant> plants){
+    ArrayList <Plant> plantsBuff = new ArrayList <Plant> (plants);
+    for (Plant plant : plantsBuff){
+      if (position.len(plant.position) < (size + plant.size)){
+        mass += plant.mass;
+        plants.remove(plant);
+      }
+    }
+  }
+    
 
 
 
